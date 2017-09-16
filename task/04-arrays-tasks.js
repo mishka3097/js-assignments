@@ -50,7 +50,7 @@ function generateOdds(len) {
  * 
  * @example
  *    ['Ace', 10, true]  => ['Ace', 10, true,   'Ace', 10, true]  
- *    [0, 1, 2, 3, 4, 5] => [0, 1, 2, 3, 4, 5,   0, 1, 2, 3, 4, 5]
+ *    [0, 1, 2, 3, 4, 5] => [0-+2, 1, 2, 3, 4, 5,   0, 1, 2, 3, 4, 5]
  *    [] => [] 
  */
 function doubleArray(arr) {
@@ -266,7 +266,7 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-    throw new Error('Not implemented');
+    return arr.filter((lol,kek) => kek % 2 == 1);
 }
 
 
@@ -303,7 +303,7 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-  throw new Error('Not implemented');
+  return arr.sort((x,y) => y - x).slice(0, 3);
 }
  
  
@@ -320,7 +320,7 @@ function get3TopItems(arr) {
  *   [ null, 1, 'elephant' ] => 1
  */
 function getPositivesCount(arr) {
-   throw new Error('Not implemented');
+    return arr.filter(lol => lol > 0).length;
 }
  
 /** 
@@ -353,6 +353,9 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
+   // return arr.reduce(function(sum, count) {
+   //    return sum + count;
+   //  });
    throw new Error('Not implemented');
 }
  
@@ -387,7 +390,7 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr, item) {
-   throw new Error('Not implemented');
+   return arr.filter(kek => kek === item).length;
 }
 
 /**
@@ -431,7 +434,14 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-   throw new Error('Not implemented');
+  throw new Error('Not implemented');
+   // return arr.sort((lol,kek) =>
+   //   if(lol.country > kek.country) return 1;
+   //   else if(lol.country < kek.country) return -1;
+
+   //   else if (lol.city > kek.city) return 1;
+   //   else if (lol.city < kek.city) return -1;
+   //   );
 }
 
 /**
