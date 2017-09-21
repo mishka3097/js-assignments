@@ -38,7 +38,7 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-   throw new Error('Not implemented');
+   return Array(len).fill(0).map((x, i) => i * 2 + 1);
 }
 
 
@@ -106,7 +106,7 @@ function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 function removeFalsyValues(arr) {
-   throw new Error('Not implemented');
+  return arr.filter((x) => x);
 }
 
 /**
@@ -285,7 +285,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   throw new Error('Not implemented');
+  return arr.map((x, i) => Array(i + 1).fill(x)).reduce((lol, kek) => lol.concat(kek), []);
 }
 
 
@@ -337,7 +337,8 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   throw new Error('Not implemented');
+  var numb = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+  return arr.sort((x, y) => numb.indexOf(x) - numb.indexOf(y));
 }
 
 /** 
@@ -353,10 +354,7 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-   // return arr.reduce(function(sum, count) {
-   //    return sum + count;
-   //  });
-   throw new Error('Not implemented');
+   return arr.reduce((sum, count) => sum + count, 0); 
 }
  
 /** 
@@ -372,7 +370,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-   throw new Error('Not implemented');
+   return arr.filter((kek) => !kek).length;
 }
 
 /**
@@ -434,14 +432,17 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-  throw new Error('Not implemented');
-   // return arr.sort((lol,kek) =>
-   //   if(lol.country > kek.country) return 1;
-   //   else if(lol.country < kek.country) return -1;
-
-   //   else if (lol.city > kek.city) return 1;
-   //   else if (lol.city < kek.city) return -1;
-   //   );
+   return arr.sort((lol,kek) => {
+     if(lol.country > kek.country)
+       return 1;
+     else if(lol.country < kek.country)
+       return -1;
+     else {
+       if (lol.city > kek.city) return 1;
+       else if (lol.city < kek.city) return -1;
+       else return 0;
+     }
+   })
 }
 
 /**
@@ -480,7 +481,7 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-   throw new Error('Not implemented');
+   return Array(end - start + 1).fill(0).map((i, j) => j + start);
 }
 
 /**
@@ -495,7 +496,7 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-   throw new Error('Not implemented');
+  return Array.from(new Set(arr));
 }
 
 /**
@@ -562,8 +563,8 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-    throw new Error('Not implemented');
-}
+    return indexes.reduce((x, y) => x[y], arr);
+  }
 
 
 /**
