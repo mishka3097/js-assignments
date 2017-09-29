@@ -23,7 +23,6 @@
  */
 function concatenateStrings(value1, value2) {
     return value1 + value2;
-    // throw new Error('Not implemented');
 }
 
 
@@ -40,7 +39,6 @@ function concatenateStrings(value1, value2) {
  */
 function getStringLength(value) {
     return value.length;
-    // throw new Error('Not implemented');
 }
 
 /**
@@ -71,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.substring(7,value.length-1);
+    return value.substring(7, value.length-1);
 }
 
 
@@ -132,7 +130,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    return str.replace(value,"");
+    return str.replace(value, "");
 }
 
 /**
