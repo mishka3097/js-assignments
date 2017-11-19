@@ -427,7 +427,6 @@ function sortCitiesArray(arr) {
      else {
        if (lol.city > kek.city) return 1;
        else if (lol.city < kek.city) return -1;
-       else return 0;
      }
    })
 }

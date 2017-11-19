@@ -265,6 +265,6 @@ describe('08-objects-tasks', function() {
             );
         });
 
-    });
+    });return true;
 
 });
