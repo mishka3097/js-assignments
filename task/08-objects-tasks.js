@@ -23,7 +23,9 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+    this.getArea = () => this.height * this.width;
 }
 
 
@@ -38,7 +40,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);    
 }
 
 
@@ -106,35 +108,137 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
+
+function MySimpleSelector() {
+    this.data = {
+        element: null,
+        id: null,
+        class: [],
+        attr: [],
+        pseudoClass: [],
+        pseudoElement: null
+    };
+
+    this.currentStage = 0;
+    this.unChangeableFieldes = [1, 2, 6];
+}
+
+MySimpleSelector.prototype = {
+    checkSequence: function (index) {
+        if (this.unChangeableFieldes.indexOf(index) != -1 && this.currentStage == index)
+            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");
+
+        if (index < this.currentStage)
+            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
+
+        this.currentStage = index;
+    },
+
+    element: function (value) {
+        this.checkSequence(1);
+        this.data.element = value;
+
+        return this;
+    },
+
+    id: function (value) {
+        this.checkSequence(2);
+        this.data.id = value;
+
+        return this;
+    },
+
+    class: function (value) {
+        this.checkSequence(3);
+        this.data.class.push(value);
+
+        return this;
+    },
+
+    attr: function (value) {
+        this.checkSequence(4);
+        this.data.attr.push(value);
+
+        return this;
+    },
+
+    pseudoClass: function (value) {
+        this.checkSequence(5);
+        this.data.pseudoClass.push(value);
+
+        return this;
+    },
+
+    pseudoElement: function (value) {
+        this.checkSequence(6);
+        this.data.pseudoElement = value;
+
+        return this;
+    },
+
+    stringifyItem: function (items, before, after) {
+        items = items || [];
+
+        if (!Array.isArray(items) && items != null)
+            items = [items];
+
+        return items.reduce((prev, curr) => prev + before + curr + after, "");
+    },
+
+    stringify: function () {
+        let d = this.data;
+
+        return this.stringifyItem(d.element, "", "") +
+            this.stringifyItem(d.id, "#", "") +
+            this.stringifyItem(d.class, ".", "") +
+            this.stringifyItem(d.attr, "[", "]") +
+            this.stringifyItem(d.pseudoClass, ":", "") +
+            this.stringifyItem(d.pseudoElement, "::", "");
+    }
+};
+
+function MyCombinedSelector(selector1, combinator, selector2) {
+    this.data = {
+        selector1: selector1,
+        combinator: combinator,
+        selector2: selector2
+    }
+}
+
+MyCombinedSelector.prototype = {
+    stringify: function () {
+        return this.data.selector1.stringify() + " " + this.data.combinator + " " + this.data.selector2.stringify();
+    }
+};
+
 const cssSelectorBuilder = {
-
-    element: function(value) {
-        throw new Error('Not implemented');
+    element: function (value) {
+        return new MySimpleSelector().element(value);
     },
 
-    id: function(value) {
-        throw new Error('Not implemented');
+    id: function (value) {
+        return new MySimpleSelector().id(value);
     },
 
-    class: function(value) {
-        throw new Error('Not implemented');
+    class: function (value) {
+        return new MySimpleSelector().class(value);
     },
 
-    attr: function(value) {
-        throw new Error('Not implemented');
+    attr: function (value) {
+        return new MySimpleSelector().attr(value);
     },
 
-    pseudoClass: function(value) {
-        throw new Error('Not implemented');
+    pseudoClass: function (value) {
+        return new MySimpleSelector().pseudoClass(value);
     },
 
-    pseudoElement: function(value) {
-        throw new Error('Not implemented');
+    pseudoElement: function (value) {
+        return new MySimpleSelector().pseudoElement(value);
     },
 
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
-    },
+    combine: function (selector1, combinator, selector2) {
+        return new MyCombinedSelector(selector1, combinator, selector2);
+    }
 };
 
 
